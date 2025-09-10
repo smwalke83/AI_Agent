@@ -26,8 +26,9 @@ def call_function(function_call_part, verbose = False):
         print(f"Calling function: {function_call_part.name}({function_call_part.args})")
     else:
         print(f" - Calling function: {function_call_part.name}")
-    if func_dict[function_call_part.name]:
-        result = func_dict[function_call_part.name](**function_call_part.args)
+    func = func_dict.get(function_call_part.name)
+    if func is not None:
+        result = func(**function_call_part.args)
         return types.Content(
             role = "tool",
             parts = [
